@@ -1,0 +1,14 @@
+env
+.vscode
+.env
+*.log
+__pycache__/
+*.pyc
+
+.idea
+*.pyo
+local_settings.py
+Lib
+Scripts
+# db.sqlite3
+migrations
