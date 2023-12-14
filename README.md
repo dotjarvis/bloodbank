@@ -33,10 +33,10 @@ Before getting started, make sure you have the following dependencies installed
 
 ## Installation
 1. Clone this repository to your local machine:
-   * `git clone https://github.com/Jan-Briddhi-Foundation/bloodbankBackend.git`
+   * `git clone git@github.com:dotjarvis/bloodbank.git`
 
 2. Navigate to the project directory:
-   * `cd bloodbankBackend`
+   * `cd bloodbank`
 
 3. Create and activate a virtual environment (optional but recommended):
    * `python -m venv venv`
