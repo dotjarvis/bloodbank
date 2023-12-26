@@ -1,6 +1,6 @@
 venv
 .vscode
-.venv
+.env
 *.log
 __pycache__/
 *.pyc
@@ -12,3 +12,4 @@ Lib
 Scripts
 db.sqlite3
 migrations
+requirements.txt
