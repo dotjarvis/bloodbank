@@ -1,4 +1,4 @@
-# Blood Donation API
+# Blood Donation System (API)
 
 ## Table of Contents
 1. Introduction
@@ -43,47 +43,55 @@ Before getting started, make sure you have the following dependencies installed
    * `# For MacOs: source venv/bin/activate`
    * `# For Windows: venv\Scripts\activate`
 
-5. Install project dependecies:
+4. Install project dependecies:
    `pip install -r requirements.txt` or `python -m pip install -r requirements.txt`
 
-6. Run project and check port:
-   * Run command `python manage.py migrate`
-   * Run command `python manage.py runserver`
-   * Check url http://localhost:8000/
 
 ## Configuration
-I havent done any configurations yet.
- * Use `admin@gmail.com` and `#Dot9047` for email and password
+
+1. Create a `.env` file in the project root and set the following environment variables:
+   * 
+   ```
+    SECRET_KEY = YOUR_SECRET_KEY
+
+    DATABASE_URL = YOUR_DATABASE_URL
+
+    SITE_DOMAIN = YOUR_SITE_DOMAIN
+    SITE_NAME = YOUR_SITE_NAME
+
+    EMAIL_USER = YOUR_EMAIL_USER
+    EMAIL_PASSWORD = YOUR_EMAIL_PASSWORD
+
+    SOCIAL_SECRET = YOUR_SOCIAL_SECRET
+
+    GOOGLE_CLIENT_ID = YOUR_GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET = YOUR_GOOGLE_CLIENT_SECRET
+
+    FACEBOOK_CLIENT_ID = YOUR_FACEBOOK_CLIENT_ID
+    FACEBOOK_SECRET_KEY = YOUR_FACEBOOK_SECRET_KEY
+
+    TWITTER_CLIENT_ID = YOUR_TWITTER_CLIENT_ID
+    TWITTER_SECRET_KEY = YOUR_TWITTER_SECRET_KEY
+
+2. Run migrations to create the database tables:
+    * Run command `python manage.py migrate`
+
+3. Create a superuser account for admin access:
+    * Run command `python manage.py createsuperuser`
+
+4. Start the development server:
+   * Run command `python manage.py runserver 8000`
+
+5. Check port:
+   * Check url http://localhost:8000/
+
 
 ## Usage 
 1. Access the Django admin panel by visiting http://localhost:8000/admin/ the superuser account created earlier.
-2. Use the admin panel to manage users, donors, recipients, appointments, and other data.
-3. To interact with the API, explore the available endpoints (documented below) or use tools like Postman.
-
-<!-- 
-### 4. Password Change
-- **Endpoint:** `/api/auth/change-password/` (POST)
-- **Description:** Password change endpoint.
-- **Parameters:**
-  - `old_password`
-  - `new_password`
-- **Response:** Confirms the password change.
+2. Use the admin panel to manage users, donors, patients, blood requests, hospital addresses, and other data.
+3. To interact with the API, explore the available endpoints (documented below) and or use tools like Postman.
 
 
- ### 5. Password Reset
-- **Endpoint:** `/api/auth/reset-password/` (POST)
-- **Description:** Password reset request endpoint.
-- **Parameters:**
-  - `email`
-- **Response:** Sends an email with instructions to reset the password. 
-
-<!--  -->
-<!-- DON’T Make These 5 Coding Mistakes… -->
-<!-- 5 IMPRESSIVE Python Resume Projects (You Can Finish in A Weekend) -->
-<!-- I tried 50 Programming Courses. Here are Top 5. -->
-
-
--->
 ## API Endpoints
 
 ## i.) Authenication Endpoints
@@ -149,24 +157,7 @@ I havent done any configurations yet.
 - **Response:** Logs out the user and invalidates the token.
 
 
-<!-- 
-### 4. User Activation
-- **Endpoint:** `/api/auth/users/activation/` (POST)
-- **Description:** User activation endpoint.
-- **Parameters:**
-  - `uid` (user id)
-  - `token` (activation token)
-- **Response:** Activates the user account. -->
-
-<!-- 
-### 5. User Details
-- **Endpoint:** `/api/auth/users/me/` (GET, PUT, PATCH)
-- **Description:** User details endpoint.
-- **Parameters:** None (GET) 
-- **Parameters:** (PUT, PATCH) User data
-  - `email`
-  - `name`
-- **Response:** Retrieves or updates user details. -->
+ 
 
 ### 6. User Deletion
 - **Endpoint:** `/api/auth/users/me/` (DELETE)
@@ -191,6 +182,18 @@ I havent done any configurations yet.
   - `email`
 - **Response:** Sends an email with instructions to reset the password.
 
+### 9. Password Reset Confirm
+- **Endpoint:** `/api/auth/users/reset_password_confirm/<str:uid>/<str:token>/` (POST)
+- **Description:** Password reset confirm request endpoint.
+- **Parameters:**
+  - `new_password`
+  - `re_new_password`
+#### Response
+- **Success (200 OK):**
+    - Returns a success message if password is updated successfully.
+
+- **Bad Request (400):**
+    - Returns validation errors if the provided data is invalid.
 
 ---
 
@@ -325,27 +328,7 @@ I havent done any configurations yet.
 - **Description:** Donation Criteria question update endpoint.
 - **Parameters:** None
 - **Response:** Modifies the donation criteria question.
-<!-- 
 
-### 5. Location Map
-- **Endpoint:** `/api/location-map/` (GET)
-- **Description:** Retrieves and renders the location map.
-- **Permissions:** User must be authenticated.
-
-#### Response
-- **Success (200 OK):**
-    - Returns a message indicating the rendering of the location map. -->
-
-<!-- ### 6. Not Eligible
-- **Endpoint:** `/api/not-eligible/` (GET)
-- **Description:** Notifies the user of ineligibility.
-- **Permissions:** User must be authenticated.
-
-#### Response
-- **Success (200 OK):**
-    - Returns a message indicating user ineligibility.
-    
--->
 
 
 ### 8. Hospital Address
@@ -388,23 +371,6 @@ I havent done any configurations yet.
         - Returns a success message if the donation agreement is sent successfully.
         - Returns an error message if the provided data is invalid.
 
-<!-- ### 9. Patient Home
-- **Endpoint:** `/api/patient-home/` (GET)
-- **Description:** Retrieves the patient's home page.
-- **Permissions:** User must be authenticated.
-
-#### Response
-- **Success (200 OK):**
-    - Returns a message indicating the patient's home page. -->
-
-<!-- ### 10. Profile
-- **Endpoint:** `/api/profile/` (GET)
-- **Description:** Retrieves the user's profile information.
-- **Permissions:** User must be authenticated.
-
-#### Response
-- **Success (200 OK):**
-    - Returns the user's profile information. -->
 
 ### 10. Profile
 - **Endpoint:** `/api/profile/` (POST, GET)
@@ -449,16 +415,6 @@ I havent done any configurations yet.
     - **Parameters:**
         - `quantity`
         - `date_needed`
-<!-- 
-### 13. Request Sent
-- **Endpoint:** `/api/request-sent/` (GET)
-- **Description:** Notifies the user of a successful blood request submission.
-- **Permissions:** User must be authenticated.
-
-#### Response
-- **Success (200 OK):**
-    - Returns a message indicating successful blood request submission. 
--->
 
 ### 12. Patient's Request History
 - **Endpoint:** `/api/patient-history/` (GET)
@@ -480,50 +436,7 @@ I havent done any configurations yet.
     - **Success (200 OK):**
         - Returns a list of requests, use the `date_created` to create notifications.
 
-<!-- ### 15. Delete Page
-- **Endpoint:** `/api/delete-page/<int:pk>/` 
-    - **GET:** Retrieves the item to be deleted.
-    - **POST:** Deletes the specified item.
-- **Description:** Allows users to view and delete specific items.
-- **Permissions:** User must be authenticated.
 
-#### GET Request
-- **Response (200 OK):**
-    - Returns the item to be deleted.
-
-#### POST Request
-- **Response (200 OK):**
-    - Returns a success message if the item is deleted successfully. -->
-
-<!-- 
-### 16. Notifications
-- **Endpoint:** `/api/notifications/` (GET)
-- **Description:** Retrieves and renders the notifications page.
-- **Permissions:** User must be authenticated.
-
-#### Response
-- **Success (200 OK):**
-    - Returns a message indicating the rendering of the notifications page. -->
-
-<!-- ### 16. Blood Match Success
-- **Endpoint:** `/api/blood-match-success/` (GET)
-- **Description:** Retrieves and renders the blood match success page.
-- **Permissions:** User must be authenticated.
-
-#### Response
-- **Success (200 OK):**
-    - Returns a message indicating the rendering of the blood match success page
-
-### 18. Error 404
-- **Endpoint:** `/api/error404/` (GET)
-- **Description:** Retrieves and renders the error 404 page.
-- **Permissions:** User must be authenticated. 
-
-#### Response
-- **Success (200 OK):**
-    - Returns a message indicating the rendering of the error 404 page.
-
--->
 ## Contributing
 We welcome contributions to improve this blood donation system. If you'd like to contribute, please follow Contribution Guidelines.
 
