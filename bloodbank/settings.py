@@ -115,10 +115,23 @@ WSGI_APPLICATION = 'bloodbank.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'django',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+                # # 'host': 'mongodb+srv://johnsonmakings:KW6dO3NOWZbWu0xD@cluster0.ffrasmr.mongodb.net/'
+                # 'host': 'mongodb://johnsonmakings:KW6dO3NOWZbWu0xD@cluster0/djangobloodapp?retryWrites=true&w=majority'
+                'host': 'mongodb+srv://johnsonmakings:KW6dO3NOWZbWu0xD@cluster0.ffrasmr.mongodb.net/djangobloodapp?retryWrites=true&w=majority'
+        }
     }
 }
 
