@@ -39,9 +39,9 @@ Before getting started, make sure you have the following dependencies installed
    * `cd bloodbank`
 
 3. Create and activate a virtual environment (optional but recommended):
-   * `python -m venv venv`
-   * `# For MacOs: source venv/bin/activate`
-   * `# For Windows: venv\Scripts\activate`
+   * `python -m venv env`
+   * # For MacOs  : `source env/bin/activate`
+   * # For Windows: `env\Scripts\activate`
 
 4. Install project dependecies:
    `pip install -r requirements.txt` or `python -m pip install -r requirements.txt`
@@ -156,9 +156,6 @@ Before getting started, make sure you have the following dependencies installed
 - **Parameters:** None
 - **Response:** Logs out the user and invalidates the token.
 
-
- 
-
 ### 6. User Deletion
 - **Endpoint:** `/api/auth/users/me/` (DELETE)
 - **Description:** User deletion endpoint.
@@ -221,8 +218,6 @@ Before getting started, make sure you have the following dependencies installed
     - `access_token_key`
     - `access_token_secret`
 - **Response:** Returns an authenicated user details, username, email and adds them in our database.
-
-
 
 ---
 
