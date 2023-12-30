@@ -45,5 +45,4 @@ urlpatterns = [
 
     path('notifications/', NotificationsAPIView.as_view(),
          name='notifications'),
-
 ]
