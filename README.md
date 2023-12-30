@@ -91,7 +91,7 @@ Before getting started, make sure you have the following dependencies installed
 1. Access the Django admin panel by visiting http://localhost:8000/admin/ the superuser account created earlier.
 2. Use the admin panel to manage users, donors, patients, blood requests, hospital addresses, and other data.
 3. To interact with the API, explore the available endpoints (documented below) and or use tools like Postman.
-4. Use the link to access the available endpoints ``https://solar-equinox-382017.postman.co/workspace/bloodbank-backend~c4b03aac-ca8d-44ec-b8a9-5f8114b18619/collection/31140470-43fcdfef-fdd8-4058-ae96-a23bb039a9c3?action=share&creator=31140470``
+4. To access the available endpoints click the [link](https://solar-equinox-382017.postman.co/workspace/bloodbank-backend~c4b03aac-ca8d-44ec-b8a9-5f8114b18619/collection/31140470-43fcdfef-fdd8-4058-ae96-a23bb039a9c3?action=share&creator=31140470)
 
 
 ## API Endpoints
