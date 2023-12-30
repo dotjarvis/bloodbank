@@ -1,7 +1,5 @@
-from rest_framework import serializers
-# from ..models import (User, BloodGroup, Profile, Blood_Request, Donation_Criteria_Form, Donation,
-#                       DonorCriteriaFormSubmission, HospitalAddress, DonationCriteriaFormField, DonorCriteriaFormFieldData)
 from ..models import *
+from rest_framework import serializers
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -40,6 +38,11 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 
+class PasswordResetSerializer(serializers.Serializer):
+    new_password = serializers.CharField()
+    re_new_password = serializers.CharField()
+
+
 class UserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
@@ -53,7 +56,6 @@ class BloodRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blood_Request
         fields = '__all__'
-        # exclude = ['profile']
 
 
 class DonationCriteriaFormSerializer(serializers.ModelSerializer):
@@ -62,7 +64,6 @@ class DonationCriteriaFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation_Criteria_Form
         fields = '__all__'
-        # exclude = ['profile']
 
 
 class EditUserFormSerializer(serializers.ModelSerializer):
@@ -79,10 +80,13 @@ class ProfileFormSerializer(serializers.ModelSerializer):
 
 
 class HospitalAddressSerializer(serializers.ModelSerializer):
+    name = serializers.CharField()
+    address = serializers.CharField()
+    email = serializers.EmailField()
 
     class Meta:
         model = HospitalAddress
-        fields = '__all__'
+        fields = ['id', 'name', 'address', 'email']
 
 
 class DonationCriteriaQuestionsSerializer(serializers.ModelSerializer):
@@ -93,25 +97,8 @@ class DonationCriteriaQuestionsSerializer(serializers.ModelSerializer):
         fields = ['id', 'question']
 
 
-# class DonorCriteriaFormFieldDataSerializer(serializers.ModelSerializer):
-#     field = DonationCriteriaFormFieldSerializer()
-
-#     class Meta:
-#         model = DonorCriteriaFormFieldData
-#         fields = '__all__'
-
-
-# class DonorCriteriaFormSubmissionSerializer(serializers.ModelSerializer):
-#     fields = DonorCriteriaFormFieldDataSerializer(many=True)
-
-#     class Meta:
-#         model = DonorCriteriaFormSubmission
-#         fields = '__all__'
-
-
 class DonationsSerializer(serializers.ModelSerializer):
-    hospital_address = HospitalAddress()
-    # eligibilityForm = DonorCriteriaFormSubmissionSerializer()
+    # hospital_address = HospitalAddress()
 
     class Meta:
         model = Donation
@@ -119,7 +106,6 @@ class DonationsSerializer(serializers.ModelSerializer):
 
 
 class DonationAgreementSerializer(serializers.ModelSerializer):
-    hospital_address = HospitalAddressSerializer()
 
     class Meta:
         model = Donation

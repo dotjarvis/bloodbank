@@ -39,9 +39,9 @@ Before getting started, make sure you have the following dependencies installed
    * `cd bloodbank`
 
 3. Create and activate a virtual environment (optional but recommended):
-   * `python -m venv venv`
-   * `# For MacOs: source venv/bin/activate`
-   * `# For Windows: venv\Scripts\activate`
+   * `python -m venv env`
+   * For MacOs  :  `source env/bin/activate`
+   * For Windows:  `env\Scripts\activate`
 
 4. Install project dependecies:
    `pip install -r requirements.txt` or `python -m pip install -r requirements.txt`
@@ -74,6 +74,7 @@ Before getting started, make sure you have the following dependencies installed
     TWITTER_SECRET_KEY = YOUR_TWITTER_SECRET_KEY
 
 2. Run migrations to create the database tables:
+    * Run command `python manage.py makemigrations`
     * Run command `python manage.py migrate`
 
 3. Create a superuser account for admin access:
@@ -155,8 +156,6 @@ Before getting started, make sure you have the following dependencies installed
 - **Description:** User logout endpoint.
 - **Parameters:** None
 - **Response:** Logs out the user and invalidates the token.
-
-
  
 
 ### 6. User Deletion
@@ -294,17 +293,18 @@ Before getting started, make sure you have the following dependencies installed
         - Returns validation errors if the provided data is invalid.
 
  ### 5. Donation Criteria Questions
-- **Endpoint:** `/api/questions/` (POST)
+- **Endpoint:** `/api/questions/` (POST, GET)
 - **Description:** For adding and retriving questions donation criteria form.
-- **Permissions:** User must be authenticated.
+- **Permissions:** User must be authenticated and be an admin.
 
     #### Request
-    - **Method:** POST
+    - **Method:** (POST)
     - **Parameters:** 
         - `question`
     - **Permissions:** User must be an admin.
 
-    #### GET Request
+    #### Request
+    - **Method:** (GET)
     - **Response (200 OK):**
     - Returns all questions donation criteria form.
 
@@ -319,6 +319,7 @@ Before getting started, make sure you have the following dependencies installed
 ### 6. Donation Question Deletion
 - **Endpoint:** `/api/questions/<int:question_id>/` (DELETE)
 - **Description:** Donation Criteria question deletion endpoint.
+- **Permissions:** User must be an admin.
 - **Parameters:** None
 - **Response:** Deletes the donation criteria question.
 
@@ -326,6 +327,7 @@ Before getting started, make sure you have the following dependencies installed
 ### 7. Donation Question Modification
 - **Endpoint:** `/api/questions/<int:question_id>/` (PUT)
 - **Description:** Donation Criteria question update endpoint.
+- **Permissions:** User must be an admin.
 - **Parameters:** None
 - **Response:** Modifies the donation criteria question.
 
@@ -341,6 +343,7 @@ Before getting started, make sure you have the following dependencies installed
     - **Parameters:** 
         - `name`
         - `address`
+        - `email`
 
     #### Response
     - **Success (200 OK):**
@@ -360,7 +363,7 @@ Before getting started, make sure you have the following dependencies installed
 
     #### GET Request
     - **Response (200 OK):**
-        - Returns user's donation agreement forms.
+        - Returns a list of user's donation agreements.
 
     #### POST Request
     - **Request:**

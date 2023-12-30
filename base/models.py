@@ -1,8 +1,9 @@
-from typing import Any
-from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
-from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.contrib.auth.models import AbstractUser, UserManager
+
+from typing import Any
 
 
 class UserManager(UserManager):
@@ -105,49 +106,6 @@ class Donation_Criteria_Form(models.Model):
     def __str__(self):
         return self.profile.user.name
 
-# class Donation_Criteria_Form(models.Model):
-#     profile = models.ForeignKey(
-#         Profile, on_delete=models.SET_NULL, null=True)
-#     rabis_hepatitis_past_1_year = models.BooleanField(null=True)
-#     tatoo_surgery_past_6_months = models.BooleanField(null=True)
-#     donated_blood_past_3_months = models.BooleanField(null=True)
-#     immunisation_past_1_month = models.BooleanField(null=True)
-#     anitibiotics_past_48_hrs = models.BooleanField(null=True)
-#     alcoholic_bevarage_past_24_hrs = models.BooleanField(null=True)
-#     asprin_dentalwork_past_72_hrs = models.BooleanField(null=True)
-#     cough_common_presently = models.BooleanField(null=True)
-#     pregnant_breastFeeding_presently = models.BooleanField(null=True)
-#     menstration_presently = models.BooleanField(null=True)
-#     health_check_1 = models.BooleanField(null=True)
-#     health_check_2 = models.BooleanField(null=True)
-#     age_betwn_18_60 = models.BooleanField(null=True)
-#     body_weight_less_45 = models.BooleanField(null=True)
-
-#     def __str__(self):
-#         return self.profile.user.name
-
-
-# class DonationCriteriaFormField(models.Model):
-    # creator = models.ForeignKey(
-    #     User, null=True, blank=True, on_delete=models.SET_NULL)
-    # name = models.CharField(max_length=355)
-    # value = models.TextField()
-    # quiz_type = models.CharField(
-    #     max_length=255, help_text="Field Types Includes : text, checkbox, number, textarea")
-    # is_required = models.BooleanField(default=True)
-    # hidden = models.BooleanField(default=False)
-
-    # def __str__(self) -> str:
-    #     return self.name
-
-    # def get_value(self):
-    #     if self.quiz_type == "checkbox":
-    #         if ["false", "False", False].__contains__("".join(self.value.split(" "))):
-    #             return False
-    #         return True
-    #     return self.value
-
-    # # Only GET method is expected
 
 class DonationCriteriaQuestions(models.Model):
     profile = models.ForeignKey(
@@ -157,38 +115,8 @@ class DonationCriteriaQuestions(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     date_modified = models.DateTimeField(auto_now=True, null=True)
 
-    def save(self, *args, **kwargs):
-        if self.profile.user.is_staff:
-            super().save(*args, **kwargs)
-        else:
-            raise PermissionError("Only admin users can create questions.")
-
     def __str__(self) -> str:
         return self.question
-
-
-# class DonorCriteriaFormSubmission(models.Model):
-#     donor = models.ForeignKey(
-#         Profile, null=True, blank=True, on_delete=models.SET_NULL)
-#     fields = models.ManyToManyField(
-#         DonationCriteriaFormField, through='DonorCriteriaFormFieldData', blank=True)
-
-#     def __str__(self) -> str:
-#         return self.donor.user.name
-
-#     def get_fields():
-#         return self.donorcriteriaformfielddata.all()
-
-
-# class DonorCriteriaFormFieldData(models.Model):
-#     field = models.ForeignKey(
-#         DonationCriteriaFormField, on_delete=models.PROTECT, blank=True, null=True)
-#     value = models.TextField()
-#     donor_form = models.ForeignKey(
-#         DonorCriteriaFormSubmission, on_delete=models.CASCADE)
-
-#     date_created = models.DateTimeField(auto_now_add=True, null=True)
-#     date_modified = models.DateTimeField(auto_now=True, null=True)
 
 
 class HospitalAddress(models.Model):
