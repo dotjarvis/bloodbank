@@ -13,10 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from decouple import config
 from pathlib import Path
 
+import dj_database_url
+
 import os
 
-# import myenv.py
-# myenv.setVar()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,12 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
-# print(SECRET_KEY)
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
+DEBUG = True
 ALLOWED_HOSTS = ['localhost', "127.0.0.1"]
+
+# DEBUG = False
+# ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -63,11 +67,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
 
-    # 'rest_framework',
-    # 'rest_framework.authtoken',  # only if you use token authentication
-    'social_django',  # django social auth
-    'rest_social_auth',  # this package
-    # 'knox',  # Only if you use django-rest-knox
+    'social_django',
+    'rest_social_auth',
+
 ]
 
 SITE_ID = 1
@@ -115,25 +117,17 @@ WSGI_APPLICATION = 'bloodbank.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'django',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-                # # 'host': 'mongodb+srv://johnsonmakings:KW6dO3NOWZbWu0xD@cluster0.ffrasmr.mongodb.net/'
-                # 'host': 'mongodb://johnsonmakings:KW6dO3NOWZbWu0xD@cluster0/djangobloodapp?retryWrites=true&w=majority'
-                'host': 'mongodb+srv://johnsonmakings:KW6dO3NOWZbWu0xD@cluster0.ffrasmr.mongodb.net/djangobloodapp?retryWrites=true&w=majority'
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': dj_database_url.parse(config('DATABASE_URL'))
+# }
 
 
 # Password validation
@@ -173,8 +167,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 
     'social_core.backends.facebook.FacebookOAuth2',
-    # and maybe some others ...
-    # 'django.contrib.auth.backends.ModelBackend',
+
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -232,9 +225,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
-    # 'DEFAULT_FILTER_BACKENDS': (
-    #     'django_filters.rest_framework.DjangoFilterBackend',
-    # ),
+
 }
 
 
@@ -251,16 +242,17 @@ REST_AUTH_SERIALIZERS = {
 
 }
 
+DOMAIN = config('SITE_DOMAIN')
+SITE_NAME = config('SITE_NAME')
+
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': 'http://localhost:8000/reset_password_confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'api/reset_password_confirm/{uid}/{token}',
 
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
-    'ACTIVATION_URL': 'http://localhost:8000/activate/{uid}/{token}',
 
-    'SEND_ACTIVATION_EMAIL': True,
     'SEND_CONFIRMATION_EMAIL': True,
     'SET_PASSWORD_RETYPE': True,
-    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
 
     'SERIALIZERS': {
         'user_create': 'base.api.serializers.UserSerializer'
