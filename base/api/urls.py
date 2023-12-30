@@ -42,8 +42,6 @@ urlpatterns = [
     path('profile/', ProfileAPIView.as_view(), name='profile'),
     path('request-blood/', RequestBloodAPIView.as_view(),
          name='request_blood'),
-    path('patient-history/', PatientHistoryAPIView.as_view(),
-         name='patient_history'),
 
     path('notifications/', NotificationsAPIView.as_view(),
          name='notifications'),

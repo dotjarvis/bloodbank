@@ -404,12 +404,19 @@ Before getting started, make sure you have the following dependencies installed
         - `profile_pic`
 
  ### 11. Request Blood
-- **Endpoint:** `/api/request-blood/` (POST)
+- **Endpoint:** `/api/request-blood/` (POST, GET)
+    - **GET:** Retrieves the user's blood donation history.
     - **POST:** Submits a blood request.
 - **Description:** Allows users to request blood donations.
 - **Permissions:** User must be authenticated.
 
-    #### POST Request
+    #### Request (GET)
+    - **Success (200 OK):**
+        - Returns a list of blood donation history for the patient.
+        - Returns User's profile information.
+
+
+    #### Request (POST)
     - **Request:**
         - Blood request data in the request body.
     - **Response:**
@@ -419,18 +426,8 @@ Before getting started, make sure you have the following dependencies installed
         - `quantity`
         - `date_needed`
 
-### 12. Patient's Request History
-- **Endpoint:** `/api/patient-history/` (GET)
-- **Description:** Retrieves the blood donation history for the patient and provides the User's profile info.
-- **Permissions:** User must be authenticated.
 
-    #### Response
-    - **Success (200 OK):**
-        - Returns a list of blood donation history for the patient.
-        - Returns User's profile information.
-
-
- ### 13. Notifications
+ ### 12. Notifications
 - **Endpoint:** `/api/notifications/` (GET)
 - **Description:** Retrieves requests for donors and or patients.
 - **Permissions:** User must be authenticated.

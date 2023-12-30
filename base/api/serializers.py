@@ -98,7 +98,7 @@ class DonationCriteriaQuestionsSerializer(serializers.ModelSerializer):
 
 
 class DonationsSerializer(serializers.ModelSerializer):
-    # hospital_address = HospitalAddress()
+    hospital_address = HospitalAddress()
 
     class Meta:
         model = Donation
@@ -106,6 +106,7 @@ class DonationsSerializer(serializers.ModelSerializer):
 
 
 class DonationAgreementSerializer(serializers.ModelSerializer):
+    hospital_address = serializers.CharField()
 
     class Meta:
         model = Donation
