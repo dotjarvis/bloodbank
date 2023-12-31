@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate
 from django.utils.timesince import timesince
 from django.contrib.sites.models import Site
 
-from .serializers import *
+from .serializers import UserSerializer, LoginSerializer, PasswordResetSerializer, UserDetailsSerializer, BloodRequestSerializer, DonationCriteriaFormSerializer, EditUserFormSerializer, ProfileFormSerializer, HospitalAddressSerializer, DonationCriteriaQuestionsSerializer, DonationAgreementSerializer
+
 from base.utils import create_knox_token
 from ..models import User, BloodGroup, Profile, Blood_Request, Donation_Criteria_Form
 
@@ -245,7 +246,6 @@ class RequestBloodAPIView(APIView):
 
         return Response({'history': serializer.data, 'profileForm': profileForm.data}, status=status.HTTP_200_OK)
 
-
     def post(self, request, *args, **kwargs):
         user = request.user
         user_profile = user.profile
@@ -295,7 +295,6 @@ class DonationAgreement(APIView):
 
         return Response({'history': serializer.data, 'profileForm': profileForm.data}, status=status.HTTP_200_OK)
 
-
     def post(self, request, *args, **kwargs):
         user = request.user
         user_profile = user.profile
@@ -305,7 +304,8 @@ class DonationAgreement(APIView):
 
         if serializer.is_valid():
             hospital_address_name = serializer.validated_data['hospital_address']
-            hospital_address, created = HospitalAddress.objects.get_or_create(name=hospital_address_name)
+            hospital_address, created = HospitalAddress.objects.get_or_create(
+                name=hospital_address_name)
 
             donation_agreement = Donation.objects.create(
                 profile=user_profile,
