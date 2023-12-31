@@ -75,6 +75,3 @@ urllib3>=1.25.4,<2.1.0
 validators==0.22.0
 win32-setctime==1.1.0
 wrapt==1.16.0
-# djongo
-# dnspython
-# pymongo

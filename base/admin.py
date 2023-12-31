@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import *
+from .models import User, Profile, Blood_Request, Donation_Criteria_Form, DonationCriteriaQuestions, HospitalAddress, Donation
+
 from django.contrib.auth.admin import UserAdmin
 
 admin.site.register(Profile)
